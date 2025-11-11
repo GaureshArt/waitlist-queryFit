@@ -16,12 +16,13 @@ export async function submitWaitlist(formData: { name: string; email: string }) 
   if (error) {
     console.error(error)
 
-    // Duplicate email error (unique constraint)
-    if (error.code === "23505") {
-      throw new Error("This email is already on the waitlist.")
-    }
+    const errorMessage =
+    error.code ==='23505'
+      ? "This email is already on the waitlist."
+      : "Something went wrong. Try again!"
 
-    throw new Error("Something went wrong. Please try again.")
+
+    throw new Error(errorMessage)
   }
 
   return { success: true }
